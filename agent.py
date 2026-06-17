@@ -134,15 +134,18 @@ def extraire_graphique(reponse):
                 parties = [p.strip() for p in contenu.split("—")]
                 if len(parties) >= 2:
                     col_y = parties[2] if len(parties) > 2 else None
-
-                    # Si col_x est "date" et col_y manque, on suppose "ca"
                     if parties[1] == "date" and not col_y:
                         col_y = "ca"
 
+                    # Détecte si c'est une moyenne
+                    agregation = "mean" if "mean" in parties[0] or len(parties) > 3 and "mean" in parties[3] else "sum"
+                    type_graphique = parties[0].replace("_mean", "").strip()
+
                     return {
-                        "type": parties[0],
+                        "type": type_graphique,
                         "col_x": parties[1],
-                        "col_y": col_y
+                        "col_y": col_y,
+                        "agregation": agregation
                     }
             except Exception:
                 return None

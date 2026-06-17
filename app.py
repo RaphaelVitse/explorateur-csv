@@ -6,9 +6,8 @@ from analyse import charger_csv, analyser_dataframe, formater_contexte_pour_llm
 from agent import poser_question, extraire_graphique, nettoyer_reponse
 import time  # Ajoute cet import en haut de app.py
 
-def afficher_graphique(df, type_graphique, col_x, col_y):
+def afficher_graphique(df, type_graphique, col_x, col_y, agregation="sum"):
     try:
-        # Cas spécial : évolution par mois
         if col_x == "date" and col_y == "ca":
             df_plot = df.copy()
             df_plot["date"] = pd.to_datetime(df_plot["date"])
@@ -26,7 +25,11 @@ def afficher_graphique(df, type_graphique, col_x, col_y):
 
         if type_graphique == "bar":
             if col_y and col_y in df.columns:
-                df_plot = df.groupby(col_x)[col_y].sum().reset_index()
+                # On choisit sum ou mean selon le paramètre agregation
+                if agregation == "mean":
+                    df_plot = df.groupby(col_x)[col_y].mean().round(2).reset_index()
+                else:
+                    df_plot = df.groupby(col_x)[col_y].sum().reset_index()
                 fig = px.bar(df_plot, x=col_x, y=col_y)
             else:
                 df_plot = df[col_x].value_counts().reset_index()
@@ -35,15 +38,21 @@ def afficher_graphique(df, type_graphique, col_x, col_y):
 
         elif type_graphique == "line":
             if col_y and col_y in df.columns:
-                df_plot = df.groupby(col_x)[col_y].sum().reset_index()
+                if agregation == "mean":
+                    df_plot = df.groupby(col_x)[col_y].mean().round(2).reset_index()
+                else:
+                    df_plot = df.groupby(col_x)[col_y].sum().reset_index()
                 fig = px.line(df_plot, x=col_x, y=col_y, markers=True)
             else:
-                st.warning("Colonne Y manquante pour le graphique en ligne.")
+                st.warning("Colonne Y manquante.")
                 return
 
         elif type_graphique == "pie":
             if col_y and col_y in df.columns:
-                df_plot = df.groupby(col_x)[col_y].sum().reset_index()
+                if agregation == "mean":
+                    df_plot = df.groupby(col_x)[col_y].mean().round(2).reset_index()
+                else:
+                    df_plot = df.groupby(col_x)[col_y].sum().reset_index()
                 fig = px.pie(df_plot, names=col_x, values=col_y)
             else:
                 df_plot = df[col_x].value_counts().reset_index()
@@ -54,7 +63,7 @@ def afficher_graphique(df, type_graphique, col_x, col_y):
             if col_y and col_y in df.columns:
                 fig = px.scatter(df, x=col_x, y=col_y)
             else:
-                st.warning("Colonne Y manquante pour le scatter.")
+                st.warning("Colonne Y manquante.")
                 return
 
         elif type_graphique == "histogram":
