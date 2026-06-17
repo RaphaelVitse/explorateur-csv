@@ -25,6 +25,15 @@ def calculer_reponse_directe(question, df):
             top = result.index[0]
             return f"Classement des vendeurs par CA total :\n\n{result.to_string()}\n\nMeilleur vendeur : **{top}** avec **{result[top]:,.0f}€**"
 
+    # CA moyen par vendeur
+    if ("moyen" in question_lower or "moyenne" in question_lower) and "vendeur" in question_lower:
+        if "vendeur" in df.columns and "ca" in df.columns:
+            result = df.groupby("vendeur")["ca"].mean().round(2).sort_values(ascending=False)
+            texte = "CA moyen par vendeur (moyenne des ventes) :\n\n"
+            for vendeur, moyenne in result.items():
+                texte += f"  - {vendeur} : {moyenne:,.2f}€\n"
+            return texte
+
     # CA par produit
     if "produit" in question_lower and ("ca" in question_lower or "vente" in question_lower or "meilleur" in question_lower):
         if "produit" in df.columns and "ca" in df.columns:
@@ -61,6 +70,7 @@ def calculer_reponse_directe(question, df):
             return f"Chiffre d'affaires total : **{total:,.0f}€**"
 
     return None                         # On ne sait pas répondre directement
+
 
 
 def construire_systeme(contexte_csv):
