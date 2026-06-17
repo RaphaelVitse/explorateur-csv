@@ -197,7 +197,7 @@ else:
                 # Si l'échange contient un graphique, on le réaffiche
                 if "graphique" in echange:
                     g = echange["graphique"]
-                    afficher_graphique(df, g["type"], g["col_x"], g["col_y"])
+                    afficher_graphique(df, g["type"], g["col_x"], g["col_y"], g.get("agregation", "sum"))
 
         # Champ de saisie de la question
         question = st.chat_input("Pose une question sur tes données...")
@@ -231,7 +231,8 @@ else:
                         df,
                         params_graphique["type"],
                         params_graphique["col_x"],
-                        params_graphique["col_y"]
+                        params_graphique["col_y"],
+                        params_graphique.get("agregation", "sum")
                     )
 
             # Sauvegarde dans l'historique

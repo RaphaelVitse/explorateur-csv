@@ -83,8 +83,11 @@ Règles importantes :
 - Si la question porte sur des chiffres, donne des valeurs exactes
 - Pour suggérer un graphique, utilise TOUJOURS ce format exact en fin de réponse :
   GRAPHIQUE: type — colonne_x — colonne_y
+  Pour une moyenne, ajoute _mean au type :
+  GRAPHIQUE: bar_mean — vendeur — ca
   Exemples :
   GRAPHIQUE: bar — vendeur — ca
+  GRAPHIQUE: bar_mean — vendeur — ca
   GRAPHIQUE: line — date — ca
   GRAPHIQUE: pie — categorie — ca
 - La colonne_y est OBLIGATOIRE sauf pour histogram
