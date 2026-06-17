@@ -4,27 +4,22 @@ import streamlit as st
 import plotly.express as px
 from analyse import charger_csv, analyser_dataframe, formater_contexte_pour_llm
 from agent import poser_question, extraire_graphique, nettoyer_reponse
+import time  # Ajoute cet import en haut de app.py
 
 def afficher_graphique(df, type_graphique, col_x, col_y):
-    """
-    Génère et affiche un graphique Plotly selon les paramètres
-    suggérés par le LLM.
-    """
     try:
         # Cas spécial : évolution par mois
-        # On regroupe les données par mois avant de tracer
         if col_x == "date" and col_y == "ca":
             df_plot = df.copy()
             df_plot["date"] = pd.to_datetime(df_plot["date"])
             df_plot = df_plot.groupby(
-                df_plot["date"].dt.to_period("M").astype(str)  # "2026-01", "2026-02"...
-            )["ca"].sum().reset_index()                         # reset_index() recrée les colonnes
-            df_plot.columns = ["mois", "ca"]                   # On renomme proprement
+                df_plot["date"].dt.to_period("M").astype(str)
+            )["ca"].sum().reset_index()
+            df_plot.columns = ["mois", "ca"]
             fig = px.line(df_plot, x="mois", y="ca", markers=True)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key=f"chart_{time.time()}")
             return
 
-        # Vérifie que les colonnes existent dans le DataFrame
         if col_x not in df.columns:
             st.warning(f"Colonne '{col_x}' introuvable.")
             return
@@ -68,7 +63,7 @@ def afficher_graphique(df, type_graphique, col_x, col_y):
         else:
             return
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, key=f"chart_{time.time()}")
 
     except Exception as e:
         st.warning(f"Impossible de générer le graphique : {e}")

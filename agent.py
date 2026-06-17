@@ -11,28 +11,24 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
 def calculer_reponse_directe(question, df):
-    """
-    Calcule directement les réponses aux questions courantes avec pandas.
-    On évite ainsi que le LLM hésite sur des calculs qu'il pourrait rater.
-    Retourne un texte de résultat ou None si on ne sait pas répondre.
-    """
+
     question_lower = question.lower()
 
-    # Meilleur vendeur par CA
+    # CA moyen par vendeur — DOIT être avant "meilleur vendeur"
+    if ("moyen" in question_lower or "moyenne" in question_lower) and "vendeur" in question_lower:
+        if "vendeur" in df.columns and "ca" in df.columns:
+            result = df.groupby("vendeur")["ca"].mean().round(2).sort_values(ascending=False)
+            texte = "CA moyen par transaction pour chaque vendeur :\n\n"
+            for vendeur, moyenne in result.items():
+                texte += f"  - {vendeur} : {moyenne:,.2f}€\n"
+            return texte
+
+    # Meilleur vendeur par CA total
     if "meilleur vendeur" in question_lower or "top vendeur" in question_lower:
         if "vendeur" in df.columns and "ca" in df.columns:
             result = df.groupby("vendeur")["ca"].sum().sort_values(ascending=False)
             top = result.index[0]
             return f"Classement des vendeurs par CA total :\n\n{result.to_string()}\n\nMeilleur vendeur : **{top}** avec **{result[top]:,.0f}€**"
-
-    # CA moyen par vendeur
-    if ("moyen" in question_lower or "moyenne" in question_lower) and "vendeur" in question_lower:
-        if "vendeur" in df.columns and "ca" in df.columns:
-            result = df.groupby("vendeur")["ca"].mean().round(2).sort_values(ascending=False)
-            texte = "CA moyen par vendeur (moyenne des ventes) :\n\n"
-            for vendeur, moyenne in result.items():
-                texte += f"  - {vendeur} : {moyenne:,.2f}€\n"
-            return texte
 
     # CA par produit
     if "produit" in question_lower and ("ca" in question_lower or "vente" in question_lower or "meilleur" in question_lower):
@@ -51,8 +47,9 @@ def calculer_reponse_directe(question, df):
     # CA par mois
     if "mois" in question_lower or "évolution" in question_lower or "evolution" in question_lower:
         if "date" in df.columns and "ca" in df.columns:
-            df["date"] = pd.to_datetime(df["date"])
-            result = df.groupby(df["date"].dt.to_period("M"))["ca"].sum()
+            df_copy = df.copy()
+            df_copy["date"] = pd.to_datetime(df_copy["date"])
+            result = df_copy.groupby(df_copy["date"].dt.to_period("M"))["ca"].sum()
             return f"CA total par mois :\n\n{result.to_string()}"
 
     # Valeurs manquantes
@@ -69,7 +66,7 @@ def calculer_reponse_directe(question, df):
             total = df["ca"].sum()
             return f"Chiffre d'affaires total : **{total:,.0f}€**"
 
-    return None                         # On ne sait pas répondre directement
+    return None
 
 
 
