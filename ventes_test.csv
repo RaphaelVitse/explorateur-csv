@@ -1,0 +1,43 @@
+date,produit,categorie,region,vendeur,quantite,prix_unitaire,ca
+2026-01-05,Laptop Pro,Informatique,Ouest,Marie Dupont,2,1200,2400
+2026-01-08,Souris sans fil,Accessoires,Nord,Paul Martin,10,25,250
+2026-01-12,Écran 27",Informatique,Sud,Sophie Leroy,3,350,1050
+2026-01-15,Clavier mécanique,Accessoires,Ouest,Marie Dupont,5,89,445
+2026-01-20,Laptop Pro,Informatique,Est,Lucas Bernard,1,1200,1200
+2026-01-22,Webcam HD,Accessoires,Nord,Paul Martin,8,65,520
+2026-01-28,Tablette X10,Informatique,Sud,Sophie Leroy,4,450,1800
+2026-02-03,Laptop Pro,Informatique,Ouest,Marie Dupont,3,1200,3600
+2026-02-07,Souris sans fil,Accessoires,Est,Lucas Bernard,15,25,375
+2026-02-10,Écran 27",Informatique,Nord,Paul Martin,2,350,700
+2026-02-14,Casque audio,Accessoires,Sud,Sophie Leroy,6,120,720
+2026-02-18,Tablette X10,Informatique,Ouest,Marie Dupont,2,450,900
+2026-02-22,Clavier mécanique,Accessoires,Est,Lucas Bernard,7,89,623
+2026-02-25,Laptop Pro,Informatique,Sud,Sophie Leroy,2,1200,2400
+2026-03-02,Webcam HD,Accessoires,Nord,Paul Martin,12,65,780
+2026-03-06,Écran 27",Informatique,Est,Lucas Bernard,4,350,1400
+2026-03-10,Souris sans fil,Accessoires,Ouest,Marie Dupont,20,25,500
+2026-03-14,Tablette X10,Informatique,Nord,Paul Martin,3,450,1350
+2026-03-18,Casque audio,Accessoires,Sud,Sophie Leroy,9,120,1080
+2026-03-22,Laptop Pro,Informatique,Est,Lucas Bernard,2,1200,2400
+2026-03-26,Clavier mécanique,Accessoires,Ouest,Marie Dupont,4,89,356
+2026-03-30,Écran 27",Informatique,Sud,Sophie Leroy,2,350,700
+2026-04-04,Souris sans fil,Accessoires,Nord,Paul Martin,18,25,450
+2026-04-08,Laptop Pro,Informatique,Ouest,Marie Dupont,4,1200,4800
+2026-04-12,Webcam HD,Accessoires,Est,Lucas Bernard,6,65,390
+2026-04-16,Tablette X10,Informatique,Sud,Sophie Leroy,5,450,2250
+2026-04-20,Casque audio,Accessoires,Nord,Paul Martin,11,120,1320
+2026-04-24,Clavier mécanique,Accessoires,Ouest,Marie Dupont,8,89,712
+2026-04-28,Écran 27",Informatique,Est,Lucas Bernard,3,350,1050
+2026-05-02,Laptop Pro,Informatique,Sud,Sophie Leroy,3,1200,3600
+2026-05-06,Souris sans fil,Accessoires,Ouest,Marie Dupont,25,25,625
+2026-05-10,Webcam HD,Accessoires,Nord,Paul Martin,9,65,585
+2026-05-14,Tablette X10,Informatique,Est,Lucas Bernard,4,450,1800
+2026-05-18,Casque audio,Accessoires,Sud,Sophie Leroy,7,120,840
+2026-05-22,Laptop Pro,Informatique,Ouest,Marie Dupont,2,1200,2400
+2026-05-26,Clavier mécanique,Accessoires,Nord,Paul Martin,10,89,890
+2026-05-30,Écran 27",Informatique,Est,Lucas Bernard,5,350,1750
+2026-06-03,Souris sans fil,Accessoires,Sud,Sophie Leroy,22,25,550
+2026-06-07,Tablette X10,Informatique,Ouest,Marie Dupont,6,450,2700
+2026-06-11,Laptop Pro,Informatique,Nord,Paul Martin,3,1200,3600
+2026-06-15,Webcam HD,Accessoires,Est,Lucas Bernard,14,65,910
+2026-06-17,Casque audio,Accessoires,Ouest,Marie Dupont,8,120,960
